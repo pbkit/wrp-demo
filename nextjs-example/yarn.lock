@@ -154,20 +154,20 @@
   resolved "https://registry.yarnpkg.com/@pbkit/runtime/-/runtime-0.0.45.tgz#7d6ab2080668fbda0c3199de9fc7786faca85dcf"
   integrity sha512-zvqLA/Uw1wMMzff/kVRKz34BZGsvB5J1yOVgX2Ym8I38IKEWnNv8UTBRYrs4R/p5hlmK8uzScL1pg6+jKLxi/Q==
 
-"@pbkit/wrp-jotai@^0.0.9":
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/@pbkit/wrp-jotai/-/wrp-jotai-0.0.9.tgz#2deac7eb01fb4cd940e296c74dec9b103fdace13"
-  integrity sha512-xLKUhlBK8u16oVUb0yQiMYBAKBmM9gXqSOX9uHHfkXSwkCzeXP97AkV79wkEdpfmd1tyCVTZWJz1xiflDs/coQ==
+"@pbkit/wrp-jotai@^0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@pbkit/wrp-jotai/-/wrp-jotai-0.0.10.tgz#51880b265a4db2a71c81ed2758143401a8a0557d"
+  integrity sha512-oVr/AGo3LRfGzg8d0lZBqepdBnmBSW4lV+DaU8Rvjp7RF4imQDm6vZbDi/6ojFVG5eFHbg0oyi4QF/F22S6TAA==
 
-"@pbkit/wrp-react@^0.0.9":
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/@pbkit/wrp-react/-/wrp-react-0.0.9.tgz#df738fa7ca79665217e85746eabf1dc2e8e3d229"
-  integrity sha512-v2+HrFibI6oyE0BdN6yq08dR4d41/X8A3OgDgIhDbBjLxDvqfIuLwTkVk1F/Hhln4VlAgZqrDRmk8qOFApr7hQ==
+"@pbkit/wrp-react@^0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@pbkit/wrp-react/-/wrp-react-0.0.10.tgz#7c63725045b3d8948566f01b40d7df737c41b634"
+  integrity sha512-Rxl/b1N5uI+lZQ9/fZ9GusMIQhnw9CVXOkcRnbw6+oYOXbQxxzkNfTmnd1JrdDOHqAGicjOHBQxAmfp50TX5TA==
 
-"@pbkit/wrp@^0.0.9":
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/@pbkit/wrp/-/wrp-0.0.9.tgz#e4296484264f3b5a031bc9af68bc0c3bc14af1c9"
-  integrity sha512-ctajO2DrnTJIt4xqRtsfwUbI4phMryedikGcQhRdVU15ytXnmFIPVntkhqftFQ14zKhRg4hPk9QCmNBLAyHJoQ==
+"@pbkit/wrp@^0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@pbkit/wrp/-/wrp-0.0.10.tgz#649f4ef815d0ab2b72d22c5e84d37941717590ed"
+  integrity sha512-vYXxeoWOtv0emVVgmImUpfLCV5TmMpEhbG6d60AfkOfW+QhRbDiuNpVOFBbQRVnyEcqA5iUTuai2ayu1E2ptiQ==
   dependencies:
     "@pbkit/runtime" "^0.0.45"
 
@@ -1710,6 +1710,11 @@ prop-types@^15.8.1:
     object-assign "^4.1.1"
     react-is "^16.13.1"
 
+proxy-compare@2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/proxy-compare/-/proxy-compare-2.2.0.tgz#2357330407241b091501644d08a446a4a28e0e15"
+  integrity sha512-hEtMJevUmOByZCTw1NRUVaWWHCGJLO0ogizpey8yX6zMPolDe8YVa+PHgMOTiZuyUkFj+hMKs/1UaM0+ZkuvgA==
+
 punycode@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
@@ -2059,6 +2064,14 @@ v8-compile-cache@^2.0.3:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/v8-compile-cache/-/v8-compile-cache-2.3.0.tgz#2de19618c66dc247dcfb6f99338035d8245a2cee"
   integrity sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==
+
+valtio@^1.6.3:
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/valtio/-/valtio-1.6.3.tgz#7ea4aa72cd3deb14f18283ecb1ef2e4f802899f6"
+  integrity sha512-ySg2q5nFFSY0zSm/a/sxEGHshWGGvelo4m4y/oAlO92fuXZ9WHSi0J214P3ZDjDiveGp08wck0qJZcA2ubEj+Q==
+  dependencies:
+    proxy-compare "2.2.0"
+    use-sync-external-store "1.2.0"
 
 which-boxed-primitive@^1.0.2:
   version "1.0.2"
