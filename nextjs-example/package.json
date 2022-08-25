@@ -10,10 +10,13 @@
     "gen": "pb-gen-ts --entry-path=.pollapo --o=generated"
   },
   "dependencies": {
-    "@pbkit/wrp": "^0.0.10",
-    "@pbkit/wrp-jotai": "^0.0.10",
-    "@pbkit/wrp-react": "^0.0.10",
-    "jotai": "^1.7.8",
+    "@emotion/babel-plugin": "^11.10.0",
+    "@emotion/react": "^11.10.0",
+    "@emotion/styled": "^11.10.0",
+    "@pbkit/wrp": "^0.0.11",
+    "@pbkit/wrp-jotai": "^0.0.11",
+    "@pbkit/wrp-react": "^0.0.11",
+    "jotai": "^1.8.0",
     "next": "12.2.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
