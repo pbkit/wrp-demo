@@ -378,7 +378,7 @@ interface BarProps {
   onScroll?: React.HTMLAttributes<HTMLDivElement>["onScroll"];
 }
 const Bar = React.forwardRef<HTMLDivElement, BarProps>(
-  ({ children, onScroll }, ref) => {
+  function Bar({ children, onScroll }, ref) {
     return (
       <div
         ref={ref}
