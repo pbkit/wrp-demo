@@ -14,6 +14,7 @@ const Frame: React.FC<FrameProps> = ({ title, sourceCodeUrl, children }) => {
           <a
             href={sourceCodeUrl}
             target="_blank"
+            rel="noreferrer"
             className="pl-2 font-light text-xs"
           >
             (source code)
