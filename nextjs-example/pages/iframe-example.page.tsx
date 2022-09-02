@@ -1,5 +1,5 @@
 import { atom, useSetAtom } from "jotai";
-import { useWrpServer } from "@pbkit/wrp-react";
+import { rpc, useWrpServer } from "@pbkit/wrp-react/server";
 import { useState } from "react";
 import { methodDescriptors } from "../generated/services/pbkit/wrp/example/WrpExampleService";
 import { Socket } from "@pbkit/wrp/socket";
@@ -39,35 +39,25 @@ export default function WrpIframeExample() {
     },
   );
   const channel = useChannel(pwasa);
-  useWrpServer(channel, { sliderValue, text }, [
-    [
+  useWrpServer(
+    channel,
+    { sliderValue, text },
+    rpc(
       methodDescriptors.getSliderValue,
-      ({ req, res, getState, stateChanges }) => {
-        res.header({});
-        const value = getState().sliderValue;
-        res.send({ value });
-        const off = stateChanges.on(
-          "sliderValue",
-          (value) => res.send({ value }),
-        );
-        req.metadata?.on("cancel-response", teardown);
-        req.metadata?.on("close", teardown);
-        function teardown() {
-          off();
-          res.end({});
-        }
+      async function* ({ req, getState, stateChanges }) {
+        const { sliderValue: value } = getState();
+        yield { value };
+        for await (const value of stateChanges.sliderValue) yield { value };
       },
-    ],
-    [
+    ),
+    rpc(
       methodDescriptors.getTextValue,
-      ({ res, getState }) => {
+      async function ({ req, getState }) {
         const { text } = getState();
-        res.header({});
-        res.send({ text });
-        res.end({});
+        return { text };
       },
-    ],
-  ]);
+    ),
+  );
   return (
     <IframeExample
       iframeRef={iframeRef}
