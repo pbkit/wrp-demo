@@ -47,7 +47,10 @@ const IframeExample: React.FC<IframeExampleProps> = ({
               <code className={`whitespace-pre-wrap text-left`}>{proto}</code>
             </div>
           )}
-          <Frame title="Server (Host)">
+          <Frame
+            title="Server (Host)"
+            sourceCodeUrl="https://github.com/pbkit/wrp-demo/blob/main/nextjs-example/pages/iframe-example.page.tsx#L42-L60"
+          >
             <div className="flex flex-col items-center gap-4 p-4 text-center">
               <div className="flex flex-col gap-4 w-full">
                 <label className="flex items-center rounded p-4 gap-4 bg-blue-100">

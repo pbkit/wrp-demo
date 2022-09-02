@@ -1,18 +1,21 @@
-import { useState, useMemo, useEffect } from 'react';
-import { useClientImpl } from '@pbkit/wrp-jotai/parent';
-import { createServiceClient } from '../generated/services/pbkit/wrp/example/WrpExampleService';
-import Frame from '../components/Frame';
+import { atom, useAtomValue } from "jotai";
+import { useEffect, useState } from "react";
+import { clientImplAtom } from "@pbkit/wrp-jotai/parent";
+import { createServiceClient } from "../generated/services/pbkit/wrp/example/WrpExampleService";
+import Frame from "../components/Frame";
+
+const serviceClientAtom = atom((get) => {
+  const clientImpl = get(clientImplAtom);
+  if (!clientImpl) return;
+  return createServiceClient(clientImpl, {
+    devtools: { tags: ["WrpClient"] },
+  });
+});
 
 export default function ClientOnlyPage() {
   const [sliderValue, setSliderValue] = useState(0);
   const [responseCount, setResponseCount] = useState(0);
-  const clientImpl = useClientImpl();
-  const serviceClient = useMemo(() => {
-    if (!clientImpl) return;
-    return createServiceClient(clientImpl, {
-      devtools: { tags: ['WrpClient'] },
-    });
-  }, [clientImpl]);
+  const serviceClient = useAtomValue(serviceClientAtom);
   const onClick = async () => {
     alert((await serviceClient?.getTextValue({}))?.text);
   };
@@ -23,13 +26,16 @@ export default function ClientOnlyPage() {
       for await (const { value } of await serviceClient.getSliderValue({})) {
         if (unmounted) return;
         setSliderValue(value);
-        setResponseCount(c => c + 1);
+        setResponseCount((c) => c + 1);
       }
     })();
     return () => void (unmounted = true);
   }, [serviceClient]);
   return (
-    <Frame title="Client (Guest)">
+    <Frame
+      title="Client (Guest)"
+      sourceCodeUrl="https://github.com/pbkit/wrp-demo/blob/main/nextjs-example/pages/client-only.page.tsx#L7-L33"
+    >
       <div className="flex flex-col items-center gap-4 p-4 text-center">
         <div className="flex flex-col items-center gap-4">
           <div className="flex items-center gap-4">
