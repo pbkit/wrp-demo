@@ -1,10 +1,19 @@
-import { useEffect, useMemo, useState } from "react";
+import { atom, useAtomValue } from "jotai";
+import { useEffect, useState } from "react";
 import { rpc, useWrpServer } from "@pbkit/wrp-react/server";
 import {
   createServiceClient,
   methodDescriptors,
 } from "../generated/services/pbkit/wrp/example/WrpExampleService";
-import { useChannel, useClientImpl } from "@pbkit/wrp-jotai/parent";
+import { clientImplAtom, useChannel } from "@pbkit/wrp-jotai/parent";
+
+const serviceClientAtom = atom((get) => {
+  const clientImpl = get(clientImplAtom);
+  if (!clientImpl) return;
+  return createServiceClient(clientImpl, {
+    devtools: { tags: ["WrpClient"] },
+  });
+});
 
 export default function ServerAndClientPage() {
   const [sliderValue, setSliderValue] = useState(50);
@@ -12,11 +21,7 @@ export default function ServerAndClientPage() {
   const [responseCount, setResponseCount] = useState(0);
   const [text, setText] = useState("Hello World");
   const channel = useChannel();
-  const clientImpl = useClientImpl();
-  const serviceClient = useMemo(() => {
-    if (!clientImpl) return;
-    return createServiceClient(clientImpl);
-  }, [clientImpl]);
+  const serviceClient = useAtomValue(serviceClientAtom);
   useEffect(() => {
     if (!serviceClient) return;
     let unmounted = false;

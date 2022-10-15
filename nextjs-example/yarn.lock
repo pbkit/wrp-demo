@@ -309,20 +309,20 @@
   resolved "https://registry.yarnpkg.com/@pbkit/runtime/-/runtime-0.0.45.tgz#7d6ab2080668fbda0c3199de9fc7786faca85dcf"
   integrity sha512-zvqLA/Uw1wMMzff/kVRKz34BZGsvB5J1yOVgX2Ym8I38IKEWnNv8UTBRYrs4R/p5hlmK8uzScL1pg6+jKLxi/Q==
 
-"@pbkit/wrp-jotai@^0.0.12":
-  version "0.0.12"
-  resolved "https://registry.yarnpkg.com/@pbkit/wrp-jotai/-/wrp-jotai-0.0.12.tgz#41eb263cc819165449d563df814209b5d3ffda17"
-  integrity sha512-/Xd1llFL1riICjqkh25ciC7CGgKAvRHMnOV2hcrStgKnyc3LrpU2/xMR02iFSD+/HPwdgz+zLBn4bh7jVLvuUg==
+"@pbkit/wrp-jotai@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@pbkit/wrp-jotai/-/wrp-jotai-0.1.4.tgz#7935c14513ed8d99c2e71d53b4e508f345f7fe93"
+  integrity sha512-7J6lF022Bsr/cHt+F9APRUvrzBFhwDYK5E/MWMfAfW0Y5p1+o2XUyD4EVuZgndYUFc9lCRSscX5RFpBCRAk/zw==
 
-"@pbkit/wrp-react@^0.0.12":
-  version "0.0.12"
-  resolved "https://registry.yarnpkg.com/@pbkit/wrp-react/-/wrp-react-0.0.12.tgz#692afaf9dd7dd639a8a34e7fad84c9a15b21b98a"
-  integrity sha512-HUpNcChVufbOd+DnHnFChSlwuiKKLlwrNAZldkO2PkpfE5ghyDl7xXvhy6JTOQaS5B/aFF8Dd+19M8fzMD1ykg==
+"@pbkit/wrp-react@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@pbkit/wrp-react/-/wrp-react-0.1.4.tgz#181e0e6c492194977c478a24431af24897b25f84"
+  integrity sha512-78qWeEaTzH9KMaYZFeCikHaFkjPOPfT75lWVRQBR4LuDAIsgMQazE5WwU8vOe841jF3/TEjg9yzjx8g365/drw==
 
-"@pbkit/wrp@^0.0.12":
-  version "0.0.12"
-  resolved "https://registry.yarnpkg.com/@pbkit/wrp/-/wrp-0.0.12.tgz#e85b60d020600ced2621c6ce61df74fb88cc3251"
-  integrity sha512-VBO7AA7ZDzjGU+DyFccdfKs3rEruSu+aRlFPZKUVmBEi+Ld+zmL3zvszvgaQKqSH4TlmCnpXgFQaguSGEP/Qfg==
+"@pbkit/wrp@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@pbkit/wrp/-/wrp-0.1.4.tgz#68ff2c51334e4aed1b41aff1ac7299bd824e839c"
+  integrity sha512-PxdwZM9ido/MFrhnv82WKsIFOWxzof8aDOP+lK6Qc2+lLvwyKv7L0SroJMG1fP7t402vot1DQJ1r+6sHvY2zDA==
   dependencies:
     "@pbkit/runtime" "^0.0.45"
 
