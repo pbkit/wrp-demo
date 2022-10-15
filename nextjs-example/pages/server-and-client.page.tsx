@@ -1,16 +1,16 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import useWrpServer from '@pbkit/wrp-react/useWrpServer';
+import { useEffect, useMemo, useState } from "react";
+import { rpc, useWrpServer } from "@pbkit/wrp-react/server";
 import {
   createServiceClient,
   methodDescriptors,
-} from '../generated/services/pbkit/wrp/example/WrpExampleService';
-import { useChannel, useClientImpl } from '@pbkit/wrp-jotai/parent';
+} from "../generated/services/pbkit/wrp/example/WrpExampleService";
+import { useChannel, useClientImpl } from "@pbkit/wrp-jotai/parent";
 
 export default function ServerAndClientPage() {
   const [sliderValue, setSliderValue] = useState(50);
   const [recvSliderValue, setRecvSliderValue] = useState(50);
   const [responseCount, setResponseCount] = useState(0);
-  const [text, setText] = useState('Hello World');
+  const [text, setText] = useState("Hello World");
   const channel = useChannel();
   const clientImpl = useClientImpl();
   const serviceClient = useMemo(() => {
@@ -24,7 +24,7 @@ export default function ServerAndClientPage() {
       for await (const { value } of await serviceClient.getSliderValue({})) {
         if (unmounted) return;
         setRecvSliderValue(value);
-        setResponseCount(c => c + 1);
+        setResponseCount((c) => c + 1);
       }
     })();
     return () => void (unmounted = true);
@@ -32,34 +32,25 @@ export default function ServerAndClientPage() {
   const onClick = async () => {
     alert((await serviceClient?.getTextValue({}))?.text);
   };
-  useWrpServer(channel, { sliderValue, text }, [
-    [
+  useWrpServer(
+    channel,
+    { sliderValue, text },
+    rpc(
       methodDescriptors.getSliderValue,
-      ({ req, res, getState, stateChanges }) => {
-        res.header({});
-        const value = getState().sliderValue;
-        res.send({ value });
-        const off = stateChanges.on('sliderValue', value =>
-          res.send({ value })
-        );
-        req.metadata?.on('cancel-response', teardown);
-        req.metadata?.on('close', teardown);
-        function teardown() {
-          off();
-          res.end({});
-        }
+      async function* ({ req, getState, stateChanges }) {
+        const { sliderValue: value } = getState();
+        yield { value };
+        for await (const value of stateChanges.sliderValue) yield { value };
       },
-    ],
-    [
+    ),
+    rpc(
       methodDescriptors.getTextValue,
-      ({ res, getState }) => {
+      async function ({ req, getState }) {
         const { text } = getState();
-        res.header({});
-        res.send({ text });
-        res.end({});
+        return { text };
       },
-    ],
-  ]);
+    ),
+  );
   const styles = {
     main: `flex flex-col items-center gap-2 p-2 text-center`,
     button: (color: string) =>
@@ -72,7 +63,7 @@ export default function ServerAndClientPage() {
       <div className={styles.main}>
         <h1 className="text-xl font-bold">WrpExampleServer (Host)</h1>
         <div className="flex flex-col gap-4">
-          <label className={styles.label('blue')}>
+          <label className={styles.label("blue")}>
             <b>SliderValue</b>
             <input
               type="range"
@@ -80,16 +71,16 @@ export default function ServerAndClientPage() {
               value={sliderValue}
               min="0"
               max="100"
-              onInput={e => setSliderValue(+(e.target as any).value)}
+              onInput={(e) => setSliderValue(+(e.target as any).value)}
             />
           </label>
-          <label className={styles.label('green')}>
+          <label className={styles.label("green")}>
             <b>TextValue</b>
             <input
               type="text"
               className="p-1"
               value={text}
-              onInput={e => setText((e.target as any).value)}
+              onInput={(e) => setText((e.target as any).value)}
             />
           </label>
         </div>
@@ -99,21 +90,21 @@ export default function ServerAndClientPage() {
         <p>GetSliderValue is requested on initialized</p>
         <div className="flex flex-col items-center gap-2">
           <div className="flex items-center gap-2">
-            <label className={styles.label('blue')}>
+            <label className={styles.label("blue")}>
               <b>Slider value</b>
               <p className="text-4xl">{recvSliderValue}</p>
             </label>
-            <label className={styles.label('red')}>
+            <label className={styles.label("red")}>
               <b># of responses (GetSliderValue)</b>
               <p className="text-4xl">{responseCount}</p>
             </label>
           </div>
           <div className="w-full flex-1 flex flex-col items-center gap-2">
-            <button className={styles.button('blue')} onClick={onClick}>
+            <button className={styles.button("blue")} onClick={onClick}>
               Get TextValue from Server
             </button>
             <button
-              className={styles.button('orange')}
+              className={styles.button("orange")}
               onClick={() => location.reload()}
             >
               Refresh page to reset

@@ -1,40 +1,31 @@
-import { useState } from 'react';
-import { useWrpServer } from '@pbkit/wrp-react';
-import { useChannel } from '@pbkit/wrp-jotai/parent';
-import { methodDescriptors } from '../generated/services/pbkit/wrp/example/WrpExampleService';
+import { useState } from "react";
+import { rpc, useWrpServer } from "@pbkit/wrp-react/server";
+import { useChannel } from "@pbkit/wrp-jotai/parent";
+import { methodDescriptors } from "../generated/services/pbkit/wrp/example/WrpExampleService";
 
 export default function ServerOnlyPage() {
   const [sliderValue, setSliderValue] = useState(50);
-  const [text, setText] = useState('Hello World');
+  const [text, setText] = useState("Hello World");
   const channel = useChannel();
-  useWrpServer(channel, { sliderValue, text }, [
-    [
+  useWrpServer(
+    channel,
+    { sliderValue, text },
+    rpc(
       methodDescriptors.getSliderValue,
-      ({ req, res, getState, stateChanges }) => {
-        res.header({});
-        const value = getState().sliderValue;
-        res.send({ value });
-        const off = stateChanges.on('sliderValue', value =>
-          res.send({ value })
-        );
-        req.metadata?.on('cancel-response', teardown);
-        req.metadata?.on('close', teardown);
-        function teardown() {
-          off();
-          res.end({});
-        }
+      async function* ({ req, getState, stateChanges }) {
+        const { sliderValue: value } = getState();
+        yield { value };
+        for await (const value of stateChanges.sliderValue) yield { value };
       },
-    ],
-    [
+    ),
+    rpc(
       methodDescriptors.getTextValue,
-      ({ res, getState }) => {
+      async function ({ req, getState }) {
         const { text } = getState();
-        res.header({});
-        res.send({ text });
-        res.end({});
+        return { text };
       },
-    ],
-  ]);
+    ),
+  );
   const styles = {
     main: `flex flex-col items-center gap-4 p-4 text-center`,
     button: (color: string) =>
@@ -47,7 +38,7 @@ export default function ServerOnlyPage() {
       <div className={styles.main}>
         <h1 className="text-2xl font-bold">WrpExampleServer (Host)</h1>
         <div className="flex flex-col gap-4">
-          <label className={styles.label('blue')}>
+          <label className={styles.label("blue")}>
             <b>SliderValue</b>
             <input
               type="range"
@@ -55,16 +46,16 @@ export default function ServerOnlyPage() {
               value={sliderValue}
               min="0"
               max="100"
-              onInput={e => setSliderValue(+(e.target as any).value)}
+              onInput={(e) => setSliderValue(+(e.target as any).value)}
             />
           </label>
-          <label className={styles.label('green')}>
+          <label className={styles.label("green")}>
             <b>TextValue</b>
             <input
               type="text"
               className="p-2"
               value={text}
-              onInput={e => setText((e.target as any).value)}
+              onInput={(e) => setText((e.target as any).value)}
             />
           </label>
         </div>
